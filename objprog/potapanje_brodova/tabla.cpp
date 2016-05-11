@@ -46,6 +46,8 @@ void Tabla::newGame()
     int x, y;
     int pravac;
 
+    brojPokusaja = 0;
+
     for(int i = 0; i < brodovi.size(); i++)
         delete brodovi[i];
     brodovi.clear();
@@ -134,6 +136,45 @@ void Tabla::postaviMapu()
                 x++;
             else
                 x++;
+        }
+    }
+}
+
+void Tabla::promenjenStatus()
+{
+    bool kraj = true;
+    int x, y;
+    int j;
+
+    for(int i = 0; i < brodovi.size(); i++)
+    {
+        if(!brodovi[i]->isZiv())
+            continue;
+        brodovi[i]->getX();
+        brodovi[i]->getY();
+        for(j = 0; j < brodovi[i]->getDuzina(); j++)
+        {
+            if(polja[x][y]->getStatus() == Polje::Brod_Ziv)
+                break;
+            if(brodovi[i]->getPravac() == Brod::Horizontalno)
+                x++;
+            else
+                y++;
+        }
+        if(j >= brodovi[i]->getDuzina())
+            brodovi[i]->ubij();
+        else
+            kraj = false;
+    }
+
+    if(kraj)
+    {
+        if(QMessageBox::information(this, tr("Potapanje brodova"),
+                                    tr("Igra uspesno zavrsena sa %1 pokusaja!"
+                                        "Da li zelite da pokrenete novu igru?").arg(brojPokusaja),
+                                    QMessageBox::Yes | QMessageBox::No) == QMessageBox::Yes)
+        {
+            newGame();
         }
     }
 }

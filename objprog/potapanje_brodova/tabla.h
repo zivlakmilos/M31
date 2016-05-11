@@ -23,9 +23,11 @@ private:
     QGridLayout *mainLayout;
     QVector<Brod *> brodovi;
     Polje *polja[DimenzijeTable][DimenzijeTable];
+    int brojPokusaja;
 
     void setupLayout();
     void postaviMapu();
+    void promenjenStatus();
 
 protected:
     void paintEvent(QPaintEvent *event);

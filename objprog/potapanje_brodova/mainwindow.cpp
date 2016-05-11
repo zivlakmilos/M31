@@ -13,7 +13,9 @@ MainWindow::MainWindow(QWidget *parent) :
     setupActions();
     setupMenus();
 
-    Tabla *tabla = new Tabla(this);
+    qsrand(QTime::currentTime().msec());
+
+    tabla = new Tabla(this);
     setCentralWidget(tabla);
 }
 
@@ -25,6 +27,7 @@ void MainWindow::setupActions()
 {
     fileNew = new QAction(tr("&Nova igra"), this);
     fileNew->setShortcut(QKeySequence::New);
+    connect(fileNew, SIGNAL(triggered()), this, SLOT(fileNewOnClick()));
 
     fileExit = new QAction(tr("&Izlaz"), this);
     fileExit->setShortcut(tr("Ctrl+Q"));
@@ -37,4 +40,9 @@ void MainWindow::setupMenus()
     file->addAction(fileNew);
     file->addSeparator();
     file->addAction(fileExit);
+}
+
+void MainWindow::fileNewOnClick()
+{
+    tabla->newGame();
 }

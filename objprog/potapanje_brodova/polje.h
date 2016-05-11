@@ -13,7 +13,7 @@ public:
 
     QSize sizeHint() const;
     int getStatus() { return status; }
-    void setStatus(int value) { status = value; }
+    void setStatus(int value) { status = value; promeniSliku(value); }
 
     enum { Prazno = 0, Brod_Ziv, Brod_Pogodjen, Promasaj };
 
